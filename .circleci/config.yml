@@ -19,7 +19,7 @@ commands:
             - v1-dependencies-{{ checksum "package.json" }}
             # Find the most recently generated cache used from any branch
             - v1-dependencies-
-      - run: 
+      - run:
           name: Install Client Dependencies
           command: yarn client:install
       - save_cache:
@@ -28,12 +28,12 @@ commands:
           key: v1-dependencies-{{ checksum "package.json" }}
   install_server:
     description: "command for Server Installation"
-    steps:          
+    steps:
       - restore_cache:
           keys:
             - v2-dependencies-{{ checksum "package.json" }}
             - v2-dependencies-
-      - run: 
+      - run:
           name: Install Server Dependencies
           command: yarn server:install
       - save_cache:
@@ -53,10 +53,10 @@ jobs:
       - install_server
       - run:
           name: Build Client
-          command: yarn client:build
+          command: npm run client:build
       - run:
           name: Build Server
-          command: yarn server:build
+          command: npm run server:build
   test:
     docker:
       - image: "cimg/base:stable"
@@ -66,12 +66,12 @@ jobs:
       - checkout
       - install_client
       - install_server
-      - run: 
-          name: Test Client 
-          command: yarn client:test
-      - run: 
-          name: Test Server 
-          command: yarn server:test
+      - run:
+          name: Test Client
+          command: npm run client:test
+      - run:
+          name: Test Server
+          command: npm run server:test
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -85,10 +85,10 @@ jobs:
       - install_server
       - run:
           name: Deploy Client
-          command: yarn client:deploy
+          command: npm run client:deploy
       - run:
           name: Deploy Server
-          command: yarn server:deploy
+          command: npm run server:deploy
 
 workflows:
   build_test_deploy:
