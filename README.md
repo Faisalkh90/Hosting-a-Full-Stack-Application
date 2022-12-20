@@ -1,83 +1,83 @@
-# Steps to configure CircleCI with AWS S3, RDS and Elastic Beanstalk
+# Hosting a Full-Stack Application
 
-[![CircleCI](https://circleci.com/gh/moelzanaty3/react-aws-circle-ci/tree/main.svg?style=svg)](https://circleci.com/gh/moelzanaty3/react-aws-circle-ci/tree/main)
 
-## CIRCLE CI
+---
 
-1. Create Circle CI Project
-2. Setup Environment Variables
 
-| Name                  |                         Value                         |
-| --------------------- | :---------------------------------------------------: |
-| AWS_REGION            |  The AWS region you used to provision RDS, S3 and EB  |
-| AWS_ACCESS_KEY_ID      |                 Your AWS Access key ID               |
-| AWS_SECRET_ACCESS_KEY |              Your AWS secret Access key               |
-| AWS_S3_ENDPOINT       |             The url of the S3 hosted app.             |
-| AWS_REGION            |  The AWS region you used to provision RDS, S3 and EB  |
-| AWS_PROFILE           |                   Your AWS profile                    |
-| AWS_BUCKET            | The name of the S3 bucket used to host the front end  |
-| ----------------------|-------------------------------------------------------|
-| POSTGRES_HOST         |         The url of the RDS database instance          |
-| POSTGRES_DB           |                       postgres                        |
-| POSTGRES_USERNAME     | The username specified when creating the RDS instance |
-| POSTGRES_PASSWORD     | The password specified when creating the RDS instance |
-| DB_PORT               |  The port of the RDS db instance (5432 for postgres)  |
 
-## AWS
+# Udagram
 
-- Create IAM user with `AdministratorAccess`
+The project application, Notes - call the notes from database (EB and RDS) and display to the users (S3)
 
-- Configure the aws cli user with your terminal via `aws configure`
+1. Frontend - React 
 
-### Create S3 Bucket
+2. Backend RESTful API - Node-Typescript application
 
-- open terminal  and run the following to create s3 bucket
 
-```bash
-aws s3api create-bucket \
-           --bucket zanaty-bucket-1 \
-           --region us-east-1
+### Dependencies
+
+```
+- Node v14.15.1 (LTS) or more recent. While older versions can work it is advisable to keep node to latest LTS version
+
+- npm 6.14.8 (LTS) or more recent, Yarn can work but was not tested for this project
+
+- AWS CLI v2, v1 can work but was not tested for this project
+
+- A RDS database running Postgres.
+
+- A S3 bucket for hosting uploaded pictures.
+
 ```
 
-- Set Bucket Policy for S3 Bucket
+### Installation
 
-make sure u change `NAME_OF_YOUR_BUCKET` with your bucket name in my case will be `zanaty-bucket-1`
+Provision the necessary AWS services needed for running the application:
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::NAME_OF_YOUR_BUCKET/*"
-            ]
-        }
-    ]
-}
-```
+1. In AWS, provision a publicly available RDS database running Postgres. <Place holder for link to classroom article>
+1. In AWS, provision a s3 bucket for hosting the uploaded files. <Place holder for tlink to classroom article>
+1. Export the ENV variables needed or use a package like [dotnev](https://www.npmjs.com/package/dotenv)/.
+1. From the root of the repo, navigate udagram-api folder `cd starter/udagram-api` to install the node_modules `npm install`. After installation is done start the api in dev mode with `npm run dev`.
+1. Without closing the terminal in step 1, navigate to the udagram-frontend `cd starter/udagram-frontend` to intall the node_modules `npm install`. After installation is done start the api in dev mode with `npm run start`.
 
-- in your s3 bucket properties go to static website hosing and enable it as below image and save the changes
 
-![images](./docs/images/s3-static-web-hosting.png)
+### Project Setup
 
-- you should have a url for example `http://zanaty-bucket-1.s3-website-us-east-1.amazonaws.com/`
+1. Clone the project
+2. Go into the project directory - `cd client`
+3. Install the dependencies - `npm install`
+4. Start the frontend - `npm run start`
+5. Open new terminal - `cd ../server`
+6. Setup `.env`
+7. Install the dependencies - `npm install`
+8. start the backend - `npm run dev`
 
-- now it's time to upload you static files and this can be by
 
-```bash
-aws s3 sync build/ s3://zanaty-bucket-1
-```
+## Testing
 
-> look for why `sync` not `cp` 'https://stackoverflow.com/a/64728207/6483379'
+This project contains two different test suite: unit tests and End-To-End tests(e2e). Follow these steps to run the tests.
 
-🐻 Delete all resource after you finish
+1. `cd starter/udagram-frontend`
+1. `npm run test`
+1. `npm run e2e`
 
-```bash
-aws s3 rb s3://zanaty-bucket-1 --force  
-```
+There are no Unit test on the back-end
+
+### Unit Tests:
+
+Unit tests are using the Jasmine Framework.
+
+### End to End Tests:
+
+The e2e tests are using Protractor and Jasmine.
+## Documentation
+
+- Screenshots of the AWS configurations and the CircleCI are provided in `./screenshots/`
+- Architecture Diagrams of the AWS and the Pipeline are provided in `./docs`
+
+## Built With
+
+- [React](https://reactjs.org/) - Single Page Application Framework
+- [Node](https://nodejs.org) - Javascript Runtime
+- [Express](https://expressjs.com/) - Javascript API Framework
+
+

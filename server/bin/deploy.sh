@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-eb init aws-circle-ci-api--platform node.js --region us-east-1
+eb init aws-circle-ci-api --platform node.js --region us-east-1
 
 eb use aws-circle-ci-api
 
