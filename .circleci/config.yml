@@ -52,7 +52,7 @@ jobs:
       - install_server
       - run:
           name: Build Client
-          command: yarn client:build
+          command: npm run client:build
       - run:
           name: Build Server
           command: yarn server:build
