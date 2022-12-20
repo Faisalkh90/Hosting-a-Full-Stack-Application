@@ -1,4 +1,3 @@
-# for more enhancement https://circleci.com/blog/six-optimization-tips-for-your-config/
 
 version: 2.1
 
@@ -53,7 +52,7 @@ jobs:
       - install_server
       - run:
           name: Build Client
-          command: yarn run client:build
+          command: yarn client:build
       - run:
           name: Build Server
           command: yarn server:build
