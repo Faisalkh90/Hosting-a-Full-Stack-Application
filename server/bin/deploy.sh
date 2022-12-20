@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-echo "*******__ Udagram Server API  __*******"
 
-echo "*******__ 1.Create a repository with the eb init command.....👨🏻‍💻🤌🏻  __*******"
-eb init udagram-api --platform node.js --region us-east-1
+eb init aws-circle-ci-api--platform node.js --region us-east-1
 
-echo "*******__ 2.Sets the specified environment....👨🏻‍💻🤌🏻  __*******"
-eb use udagram-api-dev
+eb use aws-circle-ci-api
 
-echo "*******__ 3.Deploy the changes....👨🏻‍💻🤌🏻  __*******"
-eb deploy udagram-api-dev
-
-echo "*******__ 4.Set Env Variables....👨🏻‍💻🤌🏻  __*******"
 eb setenv AWS_BUCKET=$AWS_BUCKET AWS_REGION=$AWS_REGION DB_PORT=$DB_PORT PORT=$PORT POSTGRES_DB=$POSTGRES_DB POSTGRES_HOST=$POSTGRES_HOST POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_USERNAME=$POSTGRES_USERNAME AWS_S3_ENDPOINT=$AWS_S3_ENDPOINT
+
+eb deploy aws-circle-ci-api
+#eb init aws-circle-ci-api --platform node.js --region us-east-1
+#
+#eb use aws-circle-ci-api
+#
+#eb setenv AWS_BUCKET=AWS_BUCKET POSTGRES_HOST=POSTGRES_HOST DB_PORT=DB_PORT POSTGRES_DB=POSTGRES_DB POSTGRES_USERNAME=POSTGRES_USERNAME POSTGRES_PASSWORD=POSTGRES_PASSWORD
+#
+#eb deploy aws-circle-ci-api
